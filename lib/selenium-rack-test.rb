@@ -1,3 +1,0 @@
-class SeleniumRackTest
-
-end
