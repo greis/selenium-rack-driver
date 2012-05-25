@@ -4,8 +4,26 @@
 # loaded once.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require 'selenium-rack-driver'
+require 'sample_app'
+
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
   config.run_all_when_everything_filtered = true
   config.filter_run :focus
+end
+
+SeleniumRackDriver.app = SampleApp.new
+
+def driver
+  @driver ||= Selenium::WebDriver.for :rack
+end
+
+def url_for(filename)
+  filename
+end
+
+def url_with_content(content, opts = {})
+  content = "<html><body>#{content}</body></html>" if opts[:wrap_in_body]
+  url_for("/?content=" + URI.escape(content))
 end
