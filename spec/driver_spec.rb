@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe "Driver" do
   it "should get the page title" do
-    driver.navigate.to url_with_content("<html><head><title>Test Page</title></head></html>")
+    driver.navigate.to url_with(head: "<title>Test Page</title>")
     driver.title.should == "Test Page"
   end
 
   it "should get the page source" do
-    driver.navigate.to url_with_content("<html><head><title>Test Page</title></head></html>")
+    driver.navigate.to url_with("<html><head><title>Test Page</title></head></html>")
     driver.page_source.should match("<html><head><title>Test Page</title></head></html>")
   end
 
@@ -47,44 +47,44 @@ describe "Driver" do
 
   describe "one element" do
     it "should find by id" do
-      driver.navigate.to url_with_content('<div id="id1">Foo</div>', wrap_in_body: true)
+      driver.navigate.to url_with(body: '<div id="id1">Foo</div>')
       element = driver.find_element(:id, "id1")
       element.should be_kind_of(::Selenium::WebDriver::Element)
       element.text.should == "Foo"
     end
 
     it "should find by field name" do
-      driver.navigate.to url_with_content('<input name="x" value="name" />', wrap_in_body: true)
+      driver.navigate.to url_with(body: '<input name="x" value="name" />')
       driver.find_element(:name, "x").attribute('value').should == "name"
     end
 
     it "should find by class name" do
-      driver.navigate.to url_with_content('<div class="header page">XHTML Might Be The Future</div>')
+      driver.navigate.to url_with(body: '<div class="header page">XHTML Might Be The Future</div>')
       driver.find_element(:class, "header").text.should == "XHTML Might Be The Future"
     end
 
     it "should find by link text" do
-      driver.navigate.to url_with_content('<a href="/">Foo</a>')
+      driver.navigate.to url_with(body: '<a href="/">Foo</a>')
       driver.find_element(:link, "Foo")[:href].should == "/"
     end
 
     it "should find by xpath" do
-      driver.navigate.to url_with_content('<h1>XHTML Might Be The Future</h1>')
+      driver.navigate.to url_with(body: '<h1>XHTML Might Be The Future</h1>')
       driver.find_element(:xpath, "//h1").text.should == "XHTML Might Be The Future"
     end
 
     it "should find by css selector" do
-      driver.navigate.to url_with_content('<div class="content">XHTML Might Be The Future</div>')
+      driver.navigate.to url_with(body: '<div class="content">XHTML Might Be The Future</div>')
       driver.find_element(:css, "div.content").attribute("class").should == "content"
     end
 
     it "should find by tag name" do
-      driver.navigate.to url_with_content('<div class="navigation">XHTML Might Be The Future</div>')
+      driver.navigate.to url_with(body: '<div class="navigation">XHTML Might Be The Future</div>')
       driver.find_element(:tag_name, 'div').attribute("class").should == "navigation"
     end
 
     it "should find child element" do
-      driver.navigate.to url_with_content('<form name="form2"><select id="2" name="selectomatic"></select></form>')
+      driver.navigate.to url_with(body: '<form name="form2"><select id="2" name="selectomatic"></select></form>')
 
       element = driver.find_element(:name, "form2")
       child   = element.find_element(:name, "selectomatic")
@@ -93,7 +93,7 @@ describe "Driver" do
     end
 
     it "should find child element by tag name" do
-      driver.navigate.to url_with_content('<form name="form2"><select id="2" name="selectomatic"></select></form>')
+      driver.navigate.to url_with(body: '<form name="form2"><select id="2" name="selectomatic"></select></form>')
 
       element = driver.find_element(:name, "form2")
       child   = element.find_element(:tag_name, "select")
@@ -107,12 +107,12 @@ describe "Driver" do
     end
 
     it "should find elements with a hash selector" do
-      driver.navigate.to url_with_content('<div class="header page">XHTML Might Be The Future</div>')
+      driver.navigate.to url_with(body: '<div class="header page">XHTML Might Be The Future</div>')
       driver.find_element(:class => "header").text.should == "XHTML Might Be The Future"
     end
 
     it "should find elements with the shortcut syntax" do
-      driver.navigate.to url_with_content('<h1 id="id1">Foo</h1>', wrap_in_body: true)
+      driver.navigate.to url_with(body: '<h1 id="id1">Foo</h1>')
 
       driver[:id1].should be_kind_of(::Selenium::WebDriver::Element)
       driver[:xpath => "//h1"].should be_kind_of(::Selenium::WebDriver::Element)
@@ -121,17 +121,17 @@ describe "Driver" do
 
   describe "many elements" do
     it "should find by class name" do
-      driver.navigate.to url_with_content('<div class="nameC">Foo</div><div class="nameC">Bar</div>', wrap_in_body: true)
+      driver.navigate.to url_with(body: '<div class="nameC">Foo</div><div class="nameC">Bar</div>')
       driver.find_elements(:class, "nameC").should have(2).things
     end
 
     it "should find by css selector" do
-      driver.navigate.to url_for("xhtmlTest.html")
-      driver.find_elements(:css, 'p')
+      driver.navigate.to url_with(body: '<div class="nameC">Foo</div><div class="nameC">Bar</div>')
+      driver.find_elements(:css, ".nameC").should have(2).things
     end
 
     it "should find children by field name" do
-      driver.navigate.to url_with_content('<form name="form2"><select name="selectomatic"></select><select name="selectomatic"></select></form>')
+      driver.navigate.to url_with(body: '<form name="form2"><select name="selectomatic"></select><select name="selectomatic"></select></form>')
       element = driver.find_element(:name, "form2")
       children = element.find_elements(:name, "selectomatic")
       children.should have(2).items

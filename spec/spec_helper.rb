@@ -19,11 +19,11 @@ def driver
   @driver ||= Selenium::WebDriver.for :rack
 end
 
-def url_for(filename)
-  filename
-end
-
-def url_with_content(content, opts = {})
-  content = "<html><body>#{content}</body></html>" if opts[:wrap_in_body]
-  url_for("/?content=" + URI.escape(content))
+def url_with(opts = {})
+  if opts.is_a? String
+    content = opts
+  else
+    content = "<html><head>#{opts[:head]}</head><body>#{opts[:body]}</body></html>"
+  end
+  "/?content=" + URI.escape(content)
 end

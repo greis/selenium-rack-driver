@@ -8,7 +8,7 @@ describe "Element" do
   #       <input type="image" id="imageButton" src="images/button.gif"/>
   #     </form>
   #   CONTENT
-  #   driver.navigate.to url_with_content(content)
+  #   driver.navigate.to url_with(body: content)
   #   driver.find_element(:id, "imageButton").click
   #   driver.title.should == 'We Arrive Here'
   # end
@@ -24,7 +24,7 @@ describe "Element" do
         <input type="text" id="working"/>
       </form>
     CONTENT
-    driver.navigate.to url_with_content(content)
+    driver.navigate.to url_with(body: content)
     driver.find_element(:id, "working").send_keys("foo", "bar")
     driver.find_element(:id, "working")[:value].should == "foobar"
   end
@@ -60,7 +60,7 @@ describe "Element" do
     content = <<-CONTENT
       <textarea id="withText" rows="5" cols="5">Example text</textarea>
     CONTENT
-    driver.navigate.to url_with_content(content)
+    driver.navigate.to url_with(body: content)
     driver.find_element(:id, "withText").attribute("rows").should == "5"
   end
 
@@ -68,7 +68,7 @@ describe "Element" do
     content = <<-CONTENT
       <textarea id="withText" rows="5" cols="5">Example text</textarea>
     CONTENT
-    driver.navigate.to url_with_content(content)
+    driver.navigate.to url_with(body: content)
     driver.find_element(:id, "withText").attribute("nonexistent").should be_nil
   end
 
@@ -76,7 +76,7 @@ describe "Element" do
     content = <<-CONTENT
       <textarea id="withText" rows="5" cols="5">Example text</textarea>
     CONTENT
-    driver.navigate.to url_with_content(content)
+    driver.navigate.to url_with(body: content)
     driver.find_element(:id, "withText").clear
     driver.find_element(:id, "withText").text.should == ""
   end
@@ -85,7 +85,7 @@ describe "Element" do
     content = <<-CONTENT
       <input type="text" value="Example input text" id="withText">
     CONTENT
-    driver.navigate.to url_with_content(content)
+    driver.navigate.to url_with(body: content)
     driver.find_element(:id, "withText").clear
     driver.find_element(:id, "withText")[:value].should == ""
   end
@@ -94,7 +94,7 @@ describe "Element" do
     content = <<-CONTENT
       <input type="hidden" value="Example input text" id="withText">
     CONTENT
-    driver.navigate.to url_with_content(content)
+    driver.navigate.to url_with(body: content)
     driver.find_element(:id, "withText").clear
     driver.find_element(:id, "withText")[:value].should == "Example input text"
   end
@@ -122,7 +122,7 @@ describe "Element" do
     content = <<-CONTENT
        <input type="text" id="notWorking" disabled="true"/>
     CONTENT
-    driver.navigate.to url_with_content(content)
+    driver.navigate.to url_with(body: content)
     driver.find_element(:id, "notWorking").should_not be_enabled
   end
 
@@ -135,7 +135,7 @@ describe "Element" do
   #   content = <<-CONTENT
   #      <input type="text" id="displayed" />
   #   CONTENT
-  #   driver.navigate.to url_with_content(content)
+  #   driver.navigate.to url_with(body: content)
   #   driver.find_element(:id, "displayed").should be_displayed
   # end
 
@@ -143,7 +143,7 @@ describe "Element" do
   #   content = <<-CONTENT
   #      <input type="text" id="not_displayed" style="display: none"/>
   #   CONTENT
-  #   driver.navigate.to url_with_content(content)
+  #   driver.navigate.to url_with(body: content)
   #   driver.find_element(:id, "not_displayed").should_not be_displayed
   # end
 
@@ -204,7 +204,7 @@ describe "Element" do
     content = <<-CONTENT
       <p></p>
     CONTENT
-    driver.navigate.to url_with_content(content, wrap_in_body: true)
+    driver.navigate.to url_with(body: content)
 
     body  = driver.find_element(:tag_name, 'body')
     xbody = driver.find_element(:xpath, "//body")
@@ -218,7 +218,7 @@ describe "Element" do
       <p></p>
       <p></p>
     CONTENT
-    driver.navigate.to url_with_content(content, wrap_in_body: true)
+    driver.navigate.to url_with(body: content)
 
     elements = driver.find_elements(:tag_name, 'p')
     p1 = elements.fetch(0)
@@ -232,7 +232,7 @@ describe "Element" do
     content = <<-CONTENT
       <p></p>
     CONTENT
-    driver.navigate.to url_with_content(content, wrap_in_body: true)
+    driver.navigate.to url_with(body: content)
 
     body  = driver.find_element(:tag_name, 'body')
     xbody = driver.find_element(:xpath, "//body")
@@ -244,7 +244,7 @@ describe "Element" do
     content = <<-CONTENT
       <p></p>
     CONTENT
-    driver.navigate.to url_with_content(content, wrap_in_body: true)
+    driver.navigate.to url_with(body: content)
 
     body  = driver.find_elements(:tag_name, 'body').fetch(0)
     xbody = driver.find_elements(:xpath, "//body").fetch(0)
