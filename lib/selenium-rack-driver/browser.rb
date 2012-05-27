@@ -8,8 +8,8 @@ module SeleniumRackDriver
       SeleniumRackDriver.app
     end
 
-    def dom
-      @dom ||= Nokogiri::HTML(source)
+    def root_node
+      @root_node ||= SeleniumRackDriver::Node.for(Nokogiri::HTML(source))
     end
 
     def process(method, path, attributes = {}, env = {})
@@ -36,7 +36,7 @@ module SeleniumRackDriver
     end
 
     def reset_cache!
-      @dom = nil
+      @root_node = nil
     end
 
     def source

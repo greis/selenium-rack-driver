@@ -27,26 +27,26 @@ module SeleniumRackDriver
     end
 
     def find_elements_by(how, what, parent = nil)
-      finder = parent.nil? ? dom : parent
-      elements = case how
+      finder = parent.nil? ? root_node : parent
+      nodes = case how
                  when 'id'
-                   finder.css("##{what}")
+                   finder.find(:css, "##{what}")
                  when 'name'
-                   finder.xpath("//*[@name='#{what}']")
+                   finder.find(:xpath, "//*[@name='#{what}']")
                  when 'class name'
-                   finder.css(".#{what}")
+                   finder.find(:css, ".#{what}")
                  when 'link text'
-                   finder.xpath("//*[text()='#{what}']")
+                   finder.find(:xpath, "//*[text()='#{what}']")
                  when 'xpath'
-                   finder.xpath(what)
+                   finder.find(:xpath, what)
                  when 'css selector'
-                   finder.css(what)
+                   finder.find(:css, what)
                  when 'tag name'
-                   finder.xpath("//#{what}")
+                   finder.find(:xpath, "//#{what}")
                  else
                    #raise error
                  end
-      elements.map do |node|
+      nodes.map do |node|
         ::Selenium::WebDriver::Element.new(self, node)
       end
     end
@@ -60,11 +60,11 @@ module SeleniumRackDriver
     end
 
     def getElementText(element)
-      element.text
+      element.content
     end
 
     def getTitle
-      dom.at_xpath('/html/head/title').text
+      root_node.first(:xpath, '/html/head/title').content
     end
 
     def getPageSource
@@ -93,8 +93,8 @@ module SeleniumRackDriver
       @browser ||= Browser.new
     end
 
-    def dom
-      browser.dom
+    def root_node
+      browser.root_node
     end
 
   end
