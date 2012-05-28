@@ -6,7 +6,7 @@ module SeleniumRackDriver
 
   autoload :Browser, 'selenium-rack-driver/browser'
   autoload :Driver,  'selenium-rack-driver/driver'
-  autoload :Node,  'selenium-rack-driver/node'
+  autoload :Element,  'selenium-rack-driver/element'
 
   class << self
     attr_accessor :app

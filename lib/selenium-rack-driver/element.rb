@@ -1,10 +1,10 @@
 module SeleniumRackDriver
-  class Node
+  class Element
 
     attr_reader :native
 
     def self.for(native)
-      Node.new(native)
+      Element.new(native)
     end
 
     def initialize(native)
@@ -32,25 +32,25 @@ module SeleniumRackDriver
     end
 
     def find(type, expression)
-      nodes = case type
+      elements = case type
       when :xpath
         native.xpath(expression)
       when :css
         native.css(expression)
       end
-      nodes.map do |node|
-        self.class.for(node)
+      elements.map do |element|
+        self.class.for(element)
       end
     end
 
     def first(type, expression)
-      node = case type
+      element = case type
       when :xpath
         native.at_xpath(expression)
       when :css
         native.at_css(expression)
       end
-      self.class.for(node)
+      self.class.for(element)
     end
 
     def hash

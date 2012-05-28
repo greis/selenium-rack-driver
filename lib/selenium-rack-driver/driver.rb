@@ -16,9 +16,9 @@ module SeleniumRackDriver
       end
     end
 
-    def clickElement(node)
-      if node.name == 'a'
-        browser.process(:get, node[:href])
+    def clickElement(element)
+      if element.name == 'a'
+        browser.process(:get, element[:href])
       end
     end
 
@@ -27,27 +27,27 @@ module SeleniumRackDriver
     end
 
     def find_elements_by(how, what, parent = nil)
-      finder = parent.nil? ? root_node : parent
-      nodes = case how
+      finder = parent.nil? ? dom : parent
+      elements = case how
                  when 'id'
                    finder.find(:css, "##{what}")
                  when 'name'
-                   finder.find(:xpath, "//*[@name='#{what}']")
+                   finder.find(:xpath, ".//*[@name='#{what}']")
                  when 'class name'
                    finder.find(:css, ".#{what}")
                  when 'link text'
-                   finder.find(:xpath, "//*[text()='#{what}']")
+                   finder.find(:xpath, ".//*[text()='#{what}']")
                  when 'xpath'
                    finder.find(:xpath, what)
                  when 'css selector'
                    finder.find(:css, what)
                  when 'tag name'
-                   finder.find(:xpath, "//#{what}")
+                   finder.find(:xpath, ".//#{what}")
                  else
                    #raise error
                  end
-      nodes.map do |node|
-        ::Selenium::WebDriver::Element.new(self, node)
+      elements.map do |element|
+        ::Selenium::WebDriver::Element.new(self, element)
       end
     end
 
@@ -64,7 +64,7 @@ module SeleniumRackDriver
     end
 
     def getTitle
-      root_node.first(:xpath, '/html/head/title').content
+      dom.first(:xpath, '/html/head/title').content
     end
 
     def getPageSource
@@ -93,8 +93,8 @@ module SeleniumRackDriver
       @browser ||= Browser.new
     end
 
-    def root_node
-      browser.root_node
+    def dom
+      browser.dom
     end
 
   end
