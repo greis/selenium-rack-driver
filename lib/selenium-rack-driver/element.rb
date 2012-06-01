@@ -1,14 +1,19 @@
 module SeleniumRackDriver
   class Element
 
-    attr_reader :native
+    attr_reader :native, :browser
 
-    def self.for(native)
-      Element.new(native)
+    def self.for(native, browser)
+      if native.name == "form"
+        FormElement.new(native, browser)
+      else
+        Element.new(native, browser)
+      end
     end
 
-    def initialize(native)
+    def initialize(native, browser)
       @native = native
+      @browser = browser
     end
 
     def [](attribute)
@@ -39,7 +44,7 @@ module SeleniumRackDriver
         native.css(expression)
       end
       elements.map do |element|
-        self.class.for(element)
+        self.class.for(element, browser)
       end
     end
 
@@ -50,7 +55,7 @@ module SeleniumRackDriver
       when :css
         native.at_css(expression)
       end
-      self.class.for(element)
+      self.class.for(element, browser)
     end
 
     def hash

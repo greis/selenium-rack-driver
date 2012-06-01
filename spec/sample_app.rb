@@ -19,4 +19,10 @@ class SampleApp < Sinatra::Base
     CONTENT
   end
 
+  post '/display_params' do
+    params.map do |k, v|
+      "#{k}=#{v}"
+    end.join(' ')
+  end
+
 end

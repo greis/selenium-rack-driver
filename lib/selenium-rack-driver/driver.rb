@@ -87,6 +87,10 @@ module SeleniumRackDriver
       element[:value] = keys.join
     end
 
+    def submitElement(element)
+      element.submit
+    end
+
     private
 
     def browser

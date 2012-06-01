@@ -9,7 +9,7 @@ module SeleniumRackDriver
     end
 
     def dom
-      @dom ||= SeleniumRackDriver::Element.for(Nokogiri::HTML(source))
+      @dom ||= SeleniumRackDriver::Element.for(Nokogiri::HTML(source), self)
     end
 
     def process(method, path, attributes = {}, env = {})
