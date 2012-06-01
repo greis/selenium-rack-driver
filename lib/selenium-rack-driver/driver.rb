@@ -12,10 +12,8 @@ module SeleniumRackDriver
       element.clear
     end
 
-    def clickElement(element)
-      if element.name == 'a'
-        browser.process(:get, element[:href])
-      end
+    def elementEquals(element, other)
+      element.instance_variable_get('@id') == other.instance_variable_get('@id')
     end
 
     def find_element_by(how, what, parent = nil)
@@ -67,20 +65,12 @@ module SeleniumRackDriver
       browser.source
     end
 
-    def elementEquals(element, other)
-      element.instance_variable_get('@id') == other.instance_variable_get('@id')
-    end
-
     def isElementEnabled(element)
       element[:disabled].nil?
     end
 
     def quit
       @browser = nil
-    end
-
-    def sendKeysToElement(element, keys)
-      element[:value] = keys.join
     end
 
     def submitElement(element)

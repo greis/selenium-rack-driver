@@ -69,7 +69,7 @@ module SeleniumRackDriver
       native.hash
     end
 
-    def name
+    def tag_name
       native.name
     end
 
