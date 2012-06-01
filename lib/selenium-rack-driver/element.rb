@@ -8,6 +8,8 @@ module SeleniumRackDriver
         FormElement
       elsif native.name == "textarea"
         TextAreaElement
+      elsif native.name == "select"
+        SelectElement
       elsif native.name == "input" && native[:type] == "text"
         InputTextElement
       else

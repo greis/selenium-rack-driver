@@ -5,7 +5,7 @@ module SeleniumRackDriver
       action = native[:action]
       method = native[:method].to_sym
 
-      params = find(:xpath, '(.//input|.//textarea)').inject({}) do |hash, element|
+      params = find(:xpath, '(.//input|.//textarea|.//select)').inject({}) do |hash, element|
         hash.store(element.field_name, element.field_value)
         hash
       end
