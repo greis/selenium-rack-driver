@@ -8,6 +8,8 @@ module SeleniumRackDriver
   autoload :Driver,  'selenium-rack-driver/driver'
   autoload :Element,  'selenium-rack-driver/element'
   autoload :FormElement,  'selenium-rack-driver/form_element'
+  autoload :InputTextElement,  'selenium-rack-driver/input_text_element'
+  autoload :TextAreaElement,  'selenium-rack-driver/text_area_element'
 
   class << self
     attr_accessor :app

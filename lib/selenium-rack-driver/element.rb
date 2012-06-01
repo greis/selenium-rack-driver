@@ -4,11 +4,16 @@ module SeleniumRackDriver
     attr_reader :native, :browser
 
     def self.for(native, browser)
-      if native.name == "form"
-        FormElement.new(native, browser)
+      element_class = if native.name == "form"
+        FormElement
+      elsif native.name == "textarea"
+        TextAreaElement
+      elsif native.name == "input" && native[:type] == "text"
+        InputTextElement
       else
-        Element.new(native, browser)
+        Element
       end
+      element_class.new(native, browser)
     end
 
     def initialize(native, browser)
@@ -35,6 +40,8 @@ module SeleniumRackDriver
     def content=(content)
       native.content = content
     end
+
+    def clear; end
 
     def find(type, expression)
       elements = case type

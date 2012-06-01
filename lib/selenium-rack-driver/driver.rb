@@ -9,11 +9,7 @@ module SeleniumRackDriver
     end
 
     def clearElement(element)
-      if element.name == "textarea"
-        element.content = ""
-      elsif element.name == "input" && element[:type] == "text"
-        element[:value] = ""
-      end
+      element.clear
     end
 
     def clickElement(element)
