@@ -6,11 +6,19 @@ module SeleniumRackDriver
     end
 
     def field_value
-      option = selected_options.first || options.first
-      option.field_value
+      if multiple?
+        selected_options.map(&:field_value)
+      else
+        option = selected_options.first || options.first
+        option.field_value
+      end
     end
 
     private
+
+    def multiple?
+      native[:multiple]
+    end
 
     def options
       find(:xpath, './/option')

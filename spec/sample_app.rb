@@ -21,6 +21,7 @@ class SampleApp < Sinatra::Base
 
   post '/display_params' do
     params.map do |k, v|
+      v = v.join(',') if v.is_a?(Array)
       "#{k}=#{v}"
     end.join(' ')
   end
