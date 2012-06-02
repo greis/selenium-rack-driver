@@ -35,15 +35,14 @@ describe "Form" do
       context "and input field is select box" do
 
         context "single option" do
+          let(:input) { %(<select name="color">#{options}</select>) }
 
           context "no option is selected" do
-            let(:input) do
-              <<-SELECT
-                <select name="color">
-                  <option value="red">Red</option>
-                  <option value="green">Green</option>
-                </select>
-              SELECT
+            let(:options) do
+              <<-OPTIONS
+                <option value="red">Red</option>
+                <option value="green">Green</option>
+              OPTIONS
             end
 
             it "sends the first option value params" do
@@ -52,13 +51,11 @@ describe "Form" do
           end
 
           context "last option is selected" do
-            let(:input) do
-              <<-SELECT
-                <select name="color">
-                  <option value="red">Red</option>
-                  <option value="green" selected>Green</option>
-                </select>
-              SELECT
+            let(:options) do
+              <<-OPTIONS
+                <option value="red">Red</option>
+                <option value="green" selected>Green</option>
+              OPTIONS
             end
 
             it "sends the selected option value params" do
@@ -67,12 +64,10 @@ describe "Form" do
           end
 
           context "option with no value" do
-            let(:input) do
-              <<-SELECT
-                <select name="color">
-                  <option>Red</option>
-                </select>
-              SELECT
+            let(:options) do
+              <<-OPTIONS
+                <option>Red</option>
+              OPTIONS
             end
 
             it "sends the options's text as a param" do
@@ -83,7 +78,6 @@ describe "Form" do
         end
 
         context "multiple options"
-
       end
       context "and input field is radio button"
       context "and input field is checkbox"
