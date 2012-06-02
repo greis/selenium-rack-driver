@@ -10,6 +10,7 @@ module SeleniumRackDriver
   autoload :FormElement,  'selenium-rack-driver/form_element'
   autoload :InputTextElement,  'selenium-rack-driver/input_text_element'
   autoload :InputCheckboxElement,  'selenium-rack-driver/input_checkbox_element'
+  autoload :InputRadioElement,  'selenium-rack-driver/input_radio_element'
   autoload :TextAreaElement,  'selenium-rack-driver/text_area_element'
   autoload :SelectElement,  'selenium-rack-driver/select_element'
   autoload :OptionElement,  'selenium-rack-driver/option_element'

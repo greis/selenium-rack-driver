@@ -16,6 +16,8 @@ module SeleniumRackDriver
         InputTextElement
       elsif native.name == "input" && native[:type] == "checkbox"
         InputCheckboxElement
+      elsif native.name == "input" && native[:type] == "radio"
+        InputRadioElement
       else
         Element
       end

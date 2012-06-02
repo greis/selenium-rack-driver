@@ -205,7 +205,37 @@ describe "Form" do
           end
         end
       end
-      context "and input field is radio button"
+
+      context "and input field is radio button" do
+        context "with checked radio" do
+          let(:input) do
+            <<-INPUT
+              <input type="radio" name="color" value="red" checked/>
+              <input type="radio" name="color" value="green" />
+            INPUT
+          end
+
+          it "sends the checked radio param" do
+            driver.page_source.should include('color=red')
+          end
+
+          it "does not send unchecked radio" do
+            driver.page_source.should_not include('green')
+          end
+        end
+
+        context "with no checked radio" do
+          let(:input) do
+            <<-INPUT
+              <input type="radio" name="color" value="red"/>
+            INPUT
+          end
+
+          it "does not send color param" do
+            driver.page_source.should_not include('color')
+          end
+        end
+      end
       context "and input field is file"
       context "and input field is submit"
       context "and input field is image"
