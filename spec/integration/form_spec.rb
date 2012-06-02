@@ -86,7 +86,7 @@ describe "Form" do
         end
 
         context "multiple options" do
-          let(:input) {%(<select name="color" multiple>#{options}</select>)}
+          let(:input) {%(<select name="color[]" multiple>#{options}</select>)}
 
           context "one option is selected" do
             let(:options) do
@@ -156,8 +156,56 @@ describe "Form" do
         end
 
       end
+
+      context "and input field is checkbox" do
+        context "with one checked box" do
+          let(:input) do
+            <<-INPUT
+              <input type="checkbox" name="color[]" value="red" checked/>
+              <input type="checkbox" name="color[]" value="green" />
+            INPUT
+          end
+
+          it "sends the checked box param" do
+            driver.page_source.should include('color=red')
+          end
+
+          it "does not send unchecked box" do
+            driver.page_source.should_not include('green')
+          end
+        end
+
+        context "with mutiple checked boxes" do
+          let(:input) do
+            <<-INPUT
+              <input type="checkbox" name="color[]" value="red" checked/>
+              <input type="checkbox" name="color[]" value="green" checked/>
+              <input type="checkbox" name="color[]" value="blue"/>
+            INPUT
+          end
+
+          it "sends the checked box param" do
+            driver.page_source.should include('color=red,green')
+          end
+
+          it "does not send unchecked box" do
+            driver.page_source.should_not include('blue')
+          end
+        end
+
+        context "with no checked box" do
+          let(:input) do
+            <<-INPUT
+              <input type="checkbox" name="color[]" value="red"/>
+            INPUT
+          end
+
+          it "does not send color param" do
+            driver.page_source.should_not include('color')
+          end
+        end
+      end
       context "and input field is radio button"
-      context "and input field is checkbox"
       context "and input field is file"
       context "and input field is submit"
       context "and input field is image"
