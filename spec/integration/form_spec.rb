@@ -65,6 +65,21 @@ describe "Form" do
               driver.page_source.should include('color=green')
             end
           end
+
+          context "option with no value" do
+            let(:input) do
+              <<-SELECT
+                <select name="color">
+                  <option>Red</option>
+                </select>
+              SELECT
+            end
+
+            it "sends the options's text as a param" do
+              driver.page_source.should include('color=Red')
+            end
+
+          end
         end
 
         context "multiple options"

@@ -6,8 +6,18 @@ module SeleniumRackDriver
     end
 
     def field_value
-      option = native.at_xpath('.//option[@selected]') || native.at_xpath('.//option')
-      option[:value]
+      option = selected_options.first || options.first
+      option.field_value
+    end
+
+    private
+
+    def options
+      find(:xpath, './/option')
+    end
+
+    def selected_options
+      options.select{|o| o[:selected] }
     end
 
   end
