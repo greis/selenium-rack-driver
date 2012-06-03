@@ -4,18 +4,19 @@ module SeleniumRackDriver
     def submit
       action = native[:action]
       method = native[:method].to_sym
+      params = {}
 
-      params = find(:xpath, '(.//input|.//textarea|.//select)').inject({}) do |params, element|
-        merge_param!(params, element.field_name, element.field_value) if element.field_value
-        params
+      find(:xpath, '(.//input|.//textarea|.//select)').each do |element|
+        merge_param!(params, element.field_name, element.field_value)
       end
+
       browser.process(method, action, params)
     end
 
     private
 
     def merge_param!(params, key, value)
-      Rack::Utils.normalize_params(params, key, value)
+      Rack::Utils.normalize_params(params, key, value) if value
     end
 
   end

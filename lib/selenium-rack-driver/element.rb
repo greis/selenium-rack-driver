@@ -64,13 +64,7 @@ module SeleniumRackDriver
     end
 
     def first(type, expression)
-      element = case type
-      when :xpath
-        native.at_xpath(expression)
-      when :css
-        native.at_css(expression)
-      end
-      self.class.for(element, browser)
+      find(type, expression).first
     end
 
     def hash
