@@ -6,12 +6,15 @@ describe "Form" do
 
     context "when form method is POST" do
 
-      before do
-        body = <<-BODY
+      let(:body) do
+        <<-BODY
           <form method="post" action="/display_params">
             #{input}
           </form>
         BODY
+      end
+
+      before do
         driver.navigate.to url_with(body: body)
         driver.find_element(:tag_name, 'form').submit
       end
@@ -236,9 +239,50 @@ describe "Form" do
           end
         end
       end
-      context "and input field is file"
+
+      context "and input field is file" do
+        context "with default content type" do
+          let(:input) do
+            <<-INPUT
+              <input type="file" name="color" value="spec/data/red.jpg"/>
+            INPUT
+          end
+
+          it "sends the file's base name as a param" do
+            driver.page_source.should include('color=red.jpg')
+          end
+        end
+
+        context "with multipart content type" do
+          let(:body) do
+            <<-BODY
+            <form method="post" enctype="multipart/form-data" action="/display_params">
+              #{input}
+            </form>
+            BODY
+          end
+
+          context "and file is set" do
+            let(:input) { %(<input type="file" name="color" value="spec/data/red.jpg"/>) }
+
+            it "sends the file as a param" do
+              driver.page_source.should include('color={:filename=>"red.jpg", :type=>"image/jpeg"')
+            end
+          end
+
+          context "and file is not set" do
+            let(:input) { %(<input type="file" name="color"/>) }
+
+            it "does not send the param" do
+              driver.page_source.should_not include('color')
+            end
+          end
+        end
+      end
       context "and input field is submit"
       context "and input field is image"
+      context "and input field is hidden"
+      context "and input field is password"
     end
   end
 

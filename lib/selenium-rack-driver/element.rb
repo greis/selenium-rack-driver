@@ -18,6 +18,8 @@ module SeleniumRackDriver
         InputCheckboxElement
       elsif native.name == "input" && native[:type] == "radio"
         InputRadioElement
+      elsif native.name == "input" && native[:type] == "file"
+        InputFileElement
       else
         Element
       end
@@ -57,6 +59,8 @@ module SeleniumRackDriver
         native.xpath(expression)
       when :css
         native.css(expression)
+      when :ancestors
+        native.ancestors(expression)
       end
       elements.map do |element|
         self.class.for(element, browser)

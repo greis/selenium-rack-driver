@@ -1,6 +1,10 @@
 module SeleniumRackDriver
   class FormElement < Element
 
+    def multipart?
+      self[:enctype] == "multipart/form-data"
+    end
+
     def submit
       action = native[:action]
       method = native[:method].to_sym
