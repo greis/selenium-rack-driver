@@ -11,7 +11,7 @@ module SeleniumRackDriver
       params = {}
 
       find(:xpath, '(.//input|.//textarea|.//select)').each do |element|
-        merge_param!(params, element.field_name, element.field_value)
+        merge_param!(params, element.field_name, element.field_value) if element.valid_for_submission?
       end
 
       browser.process(method, action, params)

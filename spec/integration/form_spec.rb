@@ -314,9 +314,16 @@ describe "Form" do
             driver.page_source.should include('color=')
           end
         end
-
       end
-      context "and input field is submit"
+
+      context "and input field is submit" do
+        let(:input) { %(<input type="submit" name="color" value="red" />) }
+
+        it "does not send param" do
+          driver.page_source.should_not include('color')
+        end
+      end
+
       context "and input field is image"
     end
   end

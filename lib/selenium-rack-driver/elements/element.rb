@@ -15,6 +15,8 @@ module SeleniumRackDriver
                           FileField
                         when "radio"
                           RadioField
+                        when "submit"
+                          SubmitField
                         else
                           TextField
                         end

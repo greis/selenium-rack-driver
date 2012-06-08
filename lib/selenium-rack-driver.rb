@@ -12,6 +12,7 @@ module SeleniumRackDriver
   autoload :TextField,  'selenium-rack-driver/elements/form_fields/text_field'
   autoload :CheckboxField,  'selenium-rack-driver/elements/form_fields/checkbox_field'
   autoload :RadioField,  'selenium-rack-driver/elements/form_fields/radio_field'
+  autoload :SubmitField,  'selenium-rack-driver/elements/form_fields/submit_field'
   autoload :FileField,  'selenium-rack-driver/elements/form_fields/file_field'
   autoload :TextAreaField,  'selenium-rack-driver/elements/form_fields/text_area_field'
   autoload :SelectField,  'selenium-rack-driver/elements/form_fields/select_field'
