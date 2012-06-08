@@ -9,7 +9,11 @@ module SeleniumRackDriver
       native[:value] || ""
     end
 
-    def valid_for_submission?
+    def form
+      first(:ancestors, 'form')
+    end
+
+    def valid_for_submission?(button)
       true
     end
 

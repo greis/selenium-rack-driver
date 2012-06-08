@@ -13,11 +13,5 @@ module SeleniumRackDriver
       end
     end
 
-    private
-
-    def form
-      first(:ancestors, 'form')
-    end
-
   end
 end

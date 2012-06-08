@@ -12,6 +12,10 @@ module SeleniumRackDriver
       element.clear
     end
 
+    def clickElement(element)
+      element.click
+    end
+
     def elementEquals(element, other)
       element.instance_variable_get('@id') == other.instance_variable_get('@id')
     end
