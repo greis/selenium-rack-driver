@@ -279,9 +279,27 @@ describe "Form" do
           end
         end
       end
+
+      context "and input field is hidden" do
+        context "with value" do
+          let(:input) { %(<input type="hidden" name="color" value="red" />) }
+
+          it "sends input hidden param" do
+            driver.page_source.should include('color=red')
+          end
+        end
+
+        context "without value" do
+          let(:input) { %(<input type="hidden" name="color" />) }
+
+          it "sends empty input hidden param" do
+            driver.page_source.should include('color=')
+          end
+        end
+      end
+
       context "and input field is submit"
       context "and input field is image"
-      context "and input field is hidden"
       context "and input field is password"
     end
   end
