@@ -1,16 +1,16 @@
 module SeleniumRackDriver
-  class TextAreaElement < Element
-
-    def clear
-      native.content = ""
-    end
+  class FormField < Element
 
     def field_name
       native[:name]
     end
 
     def field_value
-      native.text
+      native[:value] || ""
+    end
+
+    def valid_for_submission?
+      true
     end
 
   end

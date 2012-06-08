@@ -1,5 +1,5 @@
 module SeleniumRackDriver
-  class InputRadioElement < InputElement
+  class RadioField < FormField
 
     def field_value
       native[:value] if checked?

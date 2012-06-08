@@ -6,15 +6,16 @@ module SeleniumRackDriver
 
   autoload :Browser, 'selenium-rack-driver/browser'
   autoload :Driver,  'selenium-rack-driver/driver'
-  autoload :Element,  'selenium-rack-driver/element'
-  autoload :FormElement,  'selenium-rack-driver/form_element'
-  autoload :InputElement,  'selenium-rack-driver/input_element'
-  autoload :InputCheckboxElement,  'selenium-rack-driver/input_checkbox_element'
-  autoload :InputRadioElement,  'selenium-rack-driver/input_radio_element'
-  autoload :InputFileElement,  'selenium-rack-driver/input_file_element'
-  autoload :TextAreaElement,  'selenium-rack-driver/text_area_element'
-  autoload :SelectElement,  'selenium-rack-driver/select_element'
-  autoload :OptionElement,  'selenium-rack-driver/option_element'
+  autoload :Element,  'selenium-rack-driver/elements/element'
+  autoload :FormElement,  'selenium-rack-driver/elements/form_element'
+  autoload :FormField,  'selenium-rack-driver/elements/form_fields/form_field'
+  autoload :TextField,  'selenium-rack-driver/elements/form_fields/text_field'
+  autoload :CheckboxField,  'selenium-rack-driver/elements/form_fields/checkbox_field'
+  autoload :RadioField,  'selenium-rack-driver/elements/form_fields/radio_field'
+  autoload :FileField,  'selenium-rack-driver/elements/form_fields/file_field'
+  autoload :TextAreaField,  'selenium-rack-driver/elements/form_fields/text_area_field'
+  autoload :SelectField,  'selenium-rack-driver/elements/form_fields/select_field'
+  autoload :OptionField,  'selenium-rack-driver/elements/form_fields/option_field'
 
   class << self
     attr_accessor :app

@@ -1,5 +1,5 @@
 module SeleniumRackDriver
-  class InputCheckboxElement < InputElement
+  class CheckboxField < FormField
 
     def field_value
       native[:value] if checked?

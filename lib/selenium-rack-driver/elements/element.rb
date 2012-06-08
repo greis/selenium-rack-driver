@@ -7,23 +7,23 @@ module SeleniumRackDriver
       element_class = case native.name
                       when "form"
                         FormElement
-                      when "textarea"
-                        TextAreaElement
-                      when "select"
-                        SelectElement
-                      when "option"
-                        OptionElement
                       when "input"
                         case native[:type]
                         when "checkbox"
-                          InputCheckboxElement
-                        when "radio"
-                          InputRadioElement
+                          CheckboxField
                         when "file"
-                          InputFileElement
+                          FileField
+                        when "radio"
+                          RadioField
                         else
-                          InputElement
+                          TextField
                         end
+                      when "option"
+                        OptionField
+                      when "select"
+                        SelectField
+                      when "textarea"
+                        TextAreaField
                       else
                         Element
                       end

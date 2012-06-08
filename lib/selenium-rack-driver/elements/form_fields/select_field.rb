@@ -1,9 +1,5 @@
 module SeleniumRackDriver
-  class SelectElement < Element
-
-    def field_name
-      native[:name]
-    end
+  class SelectField < FormField
 
     def field_value
       if multiple?
