@@ -324,7 +324,13 @@ describe "Form" do
         end
       end
 
-      context "and input field is image"
+      context "and input field is image" do
+        let(:input) { %(<input type="image" name="color" value="red" />) }
+
+        it "does not send param" do
+          driver.page_source.should_not include('color')
+        end
+      end
     end
   end
 
