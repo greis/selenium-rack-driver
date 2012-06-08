@@ -298,9 +298,26 @@ describe "Form" do
         end
       end
 
+      context "and input field is password" do
+        context "with value" do
+          let(:input) { %(<input type="password" name="color" value="red" />) }
+
+          it "sends input password param" do
+            driver.page_source.should include('color=red')
+          end
+        end
+
+        context "without value" do
+          let(:input) { %(<input type="password" name="color" />) }
+
+          it "sends empty input password param" do
+            driver.page_source.should include('color=')
+          end
+        end
+
+      end
       context "and input field is submit"
       context "and input field is image"
-      context "and input field is password"
     end
   end
 
