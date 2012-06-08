@@ -39,13 +39,13 @@ describe "Element" do
       driver.find_element(:id, "withText")[:value].should == ""
     end
 
-    it "should not clear non text fields" do
+    it "should clear input hidden fields" do
       content = <<-CONTENT
         <input type="hidden" value="Example input text" id="withText">
       CONTENT
       driver.navigate.to url_with(body: content)
       driver.find_element(:id, "withText").clear
-      driver.find_element(:id, "withText")[:value].should == "Example input text"
+      driver.find_element(:id, "withText")[:value].should == ""
     end
   end
 

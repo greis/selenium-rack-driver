@@ -1,11 +1,7 @@
 require 'mime/types'
 
 module SeleniumRackDriver
-  class InputFileElement < Element
-
-    def field_name
-      native[:name]
-    end
+  class InputFileElement < InputElement
 
     def field_value
       return if native[:value].to_s.empty?

@@ -1,5 +1,5 @@
 module SeleniumRackDriver
-  class InputTextElement < Element
+  class InputElement < Element
 
     def clear
       native[:value] = ""
@@ -10,7 +10,7 @@ module SeleniumRackDriver
     end
 
     def field_value
-      native[:value]
+      native[:value] || ""
     end
 
   end

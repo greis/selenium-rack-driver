@@ -4,25 +4,29 @@ module SeleniumRackDriver
     attr_reader :native, :browser
 
     def self.for(native, browser)
-      element_class = if native.name == "form"
-        FormElement
-      elsif native.name == "textarea"
-        TextAreaElement
-      elsif native.name == "select"
-        SelectElement
-      elsif native.name == "option"
-        OptionElement
-      elsif native.name == "input" && native[:type] == "text"
-        InputTextElement
-      elsif native.name == "input" && native[:type] == "checkbox"
-        InputCheckboxElement
-      elsif native.name == "input" && native[:type] == "radio"
-        InputRadioElement
-      elsif native.name == "input" && native[:type] == "file"
-        InputFileElement
-      else
-        Element
-      end
+      element_class = case native.name
+                      when "form"
+                        FormElement
+                      when "textarea"
+                        TextAreaElement
+                      when "select"
+                        SelectElement
+                      when "option"
+                        OptionElement
+                      when "input"
+                        case native[:type]
+                        when "checkbox"
+                          InputCheckboxElement
+                        when "radio"
+                          InputRadioElement
+                        when "file"
+                          InputFileElement
+                        else
+                          InputElement
+                        end
+                      else
+                        Element
+                      end
       element_class.new(native, browser)
     end
 
