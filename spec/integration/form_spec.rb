@@ -331,6 +331,20 @@ describe "Form" do
           driver.page_source.should_not include('color')
         end
       end
+
+      context "multiple fields" do
+        let(:input) do
+          <<-INPUT
+            <input type="text" name="color" value="red" />
+            <input type="hidden" name="size" value="1" />
+          INPUT
+        end
+
+        it "sends the params" do
+          driver.page_source.should include("color=red", "size=1")
+        end
+
+      end
     end
   end
 
