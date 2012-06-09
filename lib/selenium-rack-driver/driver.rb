@@ -53,6 +53,10 @@ module SeleniumRackDriver
       browser.process(:get, url)
     end
 
+    def getCurrentUrl
+      browser.current_url
+    end
+
     def getElementAttribute(element, name)
       element[name]
     end
