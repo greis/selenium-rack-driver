@@ -18,18 +18,27 @@ describe "click action" do
         BODY
       end
 
-      context "with value" do
-        let(:input) { %(<input type="submit" name="color" value="red" />) }
+      let(:input) { %(<input type="submit" name="color" value="red" />) }
 
-        it "sends input submit params" do
-          driver.page_source.should include('color=red')
-        end
+      it "sends input submit params" do
+        driver.page_source.should include('color=red')
       end
-      context "without value"
-      context "without name"
+    end
+
+    context "outside a form" do
+      let(:body) do
+        <<-BODY
+        <form method="post" action="/display_params">
+        </form>
+        <input type="submit" name="color" value="red" />
+        BODY
+      end
+
+      it "does not submit the form" do
+        URI(driver.current_url).path.should == "/"
+      end
 
     end
-    context "outside a form"
   end
   context "input type image"
   context "button"
