@@ -59,7 +59,59 @@ describe "click action" do
       end
     end
   end
-  context "button"
+
+  context "button" do
+    let(:clickable) { "button" }
+
+    %w(submit unknown).each do |type|
+      context "type #{type}" do
+        context "inside a form" do
+          let(:body) do
+            <<-BODY
+            <form method="post" action="/display_params">
+              <button type="#{type}" name="color" value="red" />
+            </form>
+            BODY
+          end
+
+          it "sends the param" do
+            driver.page_source.should include('color=red')
+          end
+        end
+
+        context "outside a form" do
+          let(:body) do
+            <<-BODY
+              <form method="post" action="/display_params"></form>
+              <button type="#{type}" name="color" value="red" />
+            BODY
+          end
+
+          it "does not submit the form" do
+            URI(driver.current_url).path.should == "/"
+          end
+
+        end
+      end
+    end
+
+    %w(reset button).each do |type|
+      context "type #{type}" do
+        let(:body) do
+          <<-BODY
+          <form method="post" action="/display_params">
+            <button type="#{type}" name="color" value="red" />
+          </form>
+          BODY
+        end
+
+        it "does not submit the form" do
+          URI(driver.current_url).path.should == "/"
+        end
+      end
+    end
+  end
+
   context "anchor"
 end
 
