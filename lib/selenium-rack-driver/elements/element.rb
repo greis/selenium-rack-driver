@@ -9,6 +9,8 @@ module SeleniumRackDriver
                         FormElement
                       when "input"
                         case native[:type]
+                        when "button", "reset"
+                          Button
                         when "checkbox"
                           CheckboxField
                         when "file"
@@ -19,6 +21,13 @@ module SeleniumRackDriver
                           SubmitField
                         else
                           TextField
+                        end
+                      when "button"
+                        case native[:type]
+                        when "button", "reset"
+                          Button
+                        else
+                          SubmitField
                         end
                       when "option"
                         OptionField

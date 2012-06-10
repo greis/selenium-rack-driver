@@ -318,9 +318,19 @@ describe "Form" do
         end
       end
 
-      %w(submit image).each do |type|
+      %w(submit image reset button).each do |type|
         context "and input field is #{type}" do
           let(:input) { %(<input type="#{type}" name="color" value="red" />) }
+
+          it "does not send param" do
+            driver.page_source.should_not include('color')
+          end
+        end
+      end
+
+      %w(reset button submit unknown).each do |type|
+        context "and button type is #{type}" do
+          let(:input) { %(<button type="#{type}" name="color" value="red" />) }
 
           it "does not send param" do
             driver.page_source.should_not include('color')

@@ -17,6 +17,7 @@ module SeleniumRackDriver
   autoload :TextAreaField,  'selenium-rack-driver/elements/form_fields/text_area_field'
   autoload :SelectField,  'selenium-rack-driver/elements/form_fields/select_field'
   autoload :OptionField,  'selenium-rack-driver/elements/form_fields/option_field'
+  autoload :Button,  'selenium-rack-driver/elements/form_fields/button'
 
   class << self
     attr_accessor :app
