@@ -20,7 +20,7 @@ module SeleniumRackDriver
     private
 
     def merge_param!(params, key, value)
-      Rack::Utils.normalize_params(params, key, value) unless value.nil?
+      Rack::Utils.normalize_params(params, key, value)
     end
 
   end

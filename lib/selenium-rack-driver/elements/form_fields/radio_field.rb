@@ -2,12 +2,10 @@ module SeleniumRackDriver
   class RadioField < FormField
 
     def field_value
-      native[:value] if checked?
+      native[:value]
     end
 
-    private
-
-    def checked?
+    def valid_for_submission?(button)
       native[:checked]
     end
 

@@ -19,19 +19,41 @@ describe "Form" do
         driver.find_element(:tag_name, 'form').submit
       end
 
-      context "and input field is text" do
-        let(:input) { %(<input type="text" name="color" value="red" />) }
+      %w(text password hidden).each do |type|
+        context "and input field is #{type}" do
+          context "with value" do
+            let(:input) { %(<input type="#{type}" name="color" value="red" />) }
 
-        it "sends input text params" do
-          driver.page_source.should include('color=red')
+            it "sends input #{type} param" do
+              driver.page_source.should include('color=red')
+            end
+          end
+
+          context "without value" do
+            let(:input) { %(<input type="#{type}" name="color" />) }
+
+            it "sends empty input #{type} param" do
+              driver.page_source.should include('color=')
+            end
+          end
         end
       end
 
       context "and input field is textarea" do
-        let(:input) { %(<textarea name="color">red</textarea>) }
+        context "with content" do
+          let(:input) { %(<textarea name="color">red</textarea>) }
 
-        it "sends input text params" do
-          driver.page_source.should include('color=red')
+          it "sends textarea param" do
+            driver.page_source.should include('color=red')
+          end
+        end
+
+        context "without content" do
+          let(:input) { %(<textarea name="color"></textarea>) }
+
+          it "sends textarea param" do
+            driver.page_source.should include('color=')
+          end
         end
       end
 
@@ -280,55 +302,13 @@ describe "Form" do
         end
       end
 
-      context "and input field is hidden" do
-        context "with value" do
-          let(:input) { %(<input type="hidden" name="color" value="red" />) }
+      %w(submit image).each do |type|
+        context "and input field is #{type}" do
+          let(:input) { %(<input type="#{type}" name="color" value="red" />) }
 
-          it "sends input hidden param" do
-            driver.page_source.should include('color=red')
+          it "does not send param" do
+            driver.page_source.should_not include('color')
           end
-        end
-
-        context "without value" do
-          let(:input) { %(<input type="hidden" name="color" />) }
-
-          it "sends empty input hidden param" do
-            driver.page_source.should include('color=')
-          end
-        end
-      end
-
-      context "and input field is password" do
-        context "with value" do
-          let(:input) { %(<input type="password" name="color" value="red" />) }
-
-          it "sends input password param" do
-            driver.page_source.should include('color=red')
-          end
-        end
-
-        context "without value" do
-          let(:input) { %(<input type="password" name="color" />) }
-
-          it "sends empty input password param" do
-            driver.page_source.should include('color=')
-          end
-        end
-      end
-
-      context "and input field is submit" do
-        let(:input) { %(<input type="submit" name="color" value="red" />) }
-
-        it "does not send param" do
-          driver.page_source.should_not include('color')
-        end
-      end
-
-      context "and input field is image" do
-        let(:input) { %(<input type="image" name="color" value="red" />) }
-
-        it "does not send param" do
-          driver.page_source.should_not include('color')
         end
       end
 
