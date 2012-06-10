@@ -39,6 +39,22 @@ describe "Form" do
         end
       end
 
+      context "and input with no type" do
+        let(:input) { %(<input name="color" value="red" />) }
+
+        it "sends as a text param" do
+          driver.page_source.should include('color=red')
+        end
+      end
+
+      context "and unknown input type" do
+        let(:input) { %(<input type="xyz" name="color" value="red" />) }
+
+        it "sends as a text param" do
+          driver.page_source.should include('color=red')
+        end
+      end
+
       context "and input field is textarea" do
         context "with content" do
           let(:input) { %(<textarea name="color">red</textarea>) }
