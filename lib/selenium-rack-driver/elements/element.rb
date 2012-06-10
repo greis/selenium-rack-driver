@@ -94,5 +94,9 @@ module SeleniumRackDriver
       native.name
     end
 
+    def valid_for_click?
+      false
+    end
+
   end
 end

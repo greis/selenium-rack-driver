@@ -13,7 +13,7 @@ module SeleniumRackDriver
     end
 
     def clickElement(element)
-      element.click
+      element.click if element.valid_for_click?
     end
 
     def elementEquals(element, other)
