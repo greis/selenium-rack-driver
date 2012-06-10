@@ -6,8 +6,8 @@ module SeleniumRackDriver
     end
 
     def submit(button = nil)
-      action = native[:action]
-      method = native[:method].to_sym
+      action = self[:action]
+      method = self[:method].to_sym
       params = {}
 
       find(:xpath, '(.//input|.//textarea|.//select)').each do |element|

@@ -2,11 +2,11 @@ module SeleniumRackDriver
   class CheckboxField < FormField
 
     def field_value
-      native[:value]
+      self[:value]
     end
 
     def valid_for_submission?(button)
-      native[:checked]
+      self[:checked]
     end
 
   end

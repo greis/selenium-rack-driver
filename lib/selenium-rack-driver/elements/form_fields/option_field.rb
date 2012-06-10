@@ -2,7 +2,7 @@ module SeleniumRackDriver
   class OptionField < FormField
 
     def field_value
-      native[:value] || native.text
+      self[:value] || content
     end
 
   end

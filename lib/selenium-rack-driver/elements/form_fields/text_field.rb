@@ -2,7 +2,7 @@ module SeleniumRackDriver
   class TextField < FormField
 
     def clear
-      native[:value] = ""
+      self[:value] = ""
     end
 
   end

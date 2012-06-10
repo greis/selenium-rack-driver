@@ -2,11 +2,11 @@ module SeleniumRackDriver
   class FormField < Element
 
     def field_name
-      native[:name]
+      self[:name]
     end
 
     def field_value
-      native[:value] || ""
+      self[:value] || ""
     end
 
     def form

@@ -5,15 +5,15 @@ module SeleniumRackDriver
 
     def field_value
       if form.multipart?
-        content_type = MIME::Types.type_for(native[:value]).first.to_s
-        Rack::Test::UploadedFile.new(native[:value], content_type)
+        content_type = MIME::Types.type_for(self[:value]).first.to_s
+        Rack::Test::UploadedFile.new(self[:value], content_type)
       else
-        File.basename(native[:value])
+        File.basename(self[:value])
       end
     end
 
     def valid_for_submission?(button)
-      !native[:value].to_s.empty?
+      !self[:value].to_s.empty?
     end
 
   end

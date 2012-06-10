@@ -2,11 +2,11 @@ module SeleniumRackDriver
   class TextAreaField < FormField
 
     def clear
-      native.content = ""
+      self.content = ""
     end
 
     def field_value
-      native.text
+      content
     end
 
   end

@@ -13,7 +13,7 @@ module SeleniumRackDriver
     private
 
     def multiple?
-      native[:multiple]
+      self[:multiple]
     end
 
     def options
