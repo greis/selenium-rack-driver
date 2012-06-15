@@ -2,7 +2,7 @@ module SeleniumRackDriver
   class Browser
     include ::Rack::Test::Methods
 
-    attr_accessor :current_url
+    attr_accessor :current_url, :current_path
 
     def app
       SeleniumRackDriver.app
@@ -14,6 +14,7 @@ module SeleniumRackDriver
 
     def process(method, path, attributes = {}, env = {})
       self.current_url = path
+      self.current_path = URI(path).path
       reset_cache!
       send(method, path, attributes, env)
     end

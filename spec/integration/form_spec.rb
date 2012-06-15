@@ -9,6 +9,42 @@ describe "Form" do
       driver.find_element(:tag_name, 'form').submit
     end
 
+    context "when no action is provided" do
+      let(:body) do
+        <<-BODY
+          <form>
+            <input type="text" name="content" value="Hello" />
+          </form>
+        BODY
+      end
+
+      it "should submit to the current url" do
+        driver.current_url.should == "/"
+      end
+
+      it "should submit the params" do
+        driver.page_source.should == "Hello"
+      end
+    end
+
+    context "when action is empty" do
+      let(:body) do
+        <<-BODY
+          <form action="">
+            <input type="text" name="content" value="Hello" />
+          </form>
+        BODY
+      end
+
+      it "should submit to the current url" do
+        driver.current_url.should == "/"
+      end
+
+      it "should submit the params" do
+        driver.page_source.should == "Hello"
+      end
+    end
+
     context "when form method is POST" do
 
       let(:body) do
