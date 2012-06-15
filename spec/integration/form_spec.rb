@@ -4,6 +4,11 @@ describe "Form" do
 
   describe "submit" do
 
+    before do
+      driver.navigate.to url_with(body: body)
+      driver.find_element(:tag_name, 'form').submit
+    end
+
     context "when form method is POST" do
 
       let(:body) do
@@ -14,9 +19,11 @@ describe "Form" do
         BODY
       end
 
-      before do
-        driver.navigate.to url_with(body: body)
-        driver.find_element(:tag_name, 'form').submit
+      context "empty params" do
+        let(:input) { "" }
+        it "should make a POST request" do
+          driver.page_source.should include('[method: post]')
+        end
       end
 
       %w(text password hidden).each do |type|
@@ -350,6 +357,42 @@ describe "Form" do
           driver.page_source.should include("color=red", "size=1")
         end
 
+      end
+    end
+
+    context "when form method is GET" do
+      let(:body) do
+        <<-BODY
+          <form method="get" action="/display_params">
+            <input type="text" name="color" value="red" />
+          </form>
+        BODY
+      end
+
+      it "should make a GET request" do
+        driver.page_source.should include('[method: get]')
+      end
+
+      it "should send the param" do
+        driver.page_source.should include("color=red")
+      end
+    end
+
+    context "when form method is not GET or POST" do
+      let(:body) do
+        <<-BODY
+          <form method="delete" action="/display_params">
+            <input type="text" name="color" value="red" />
+          </form>
+        BODY
+      end
+
+      it "should make a GET request" do
+        driver.page_source.should include('[method: get]')
+      end
+
+      it "should send the param" do
+        driver.page_source.should include("color=red")
       end
     end
   end

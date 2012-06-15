@@ -7,7 +7,6 @@ module SeleniumRackDriver
 
     def submit(button = nil)
       action = self[:action]
-      method = self[:method].to_sym
       params = {}
 
       find(:xpath, '(.//input|.//textarea|.//select|.//button)').each do |element|
@@ -21,6 +20,10 @@ module SeleniumRackDriver
 
     def merge_param!(params, key, value)
       Rack::Utils.normalize_params(params, key, value)
+    end
+
+    def method
+      self[:method] =~ /post/i ? :post : :get
     end
 
   end
