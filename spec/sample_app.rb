@@ -10,7 +10,7 @@ class SampleApp < Sinatra::Base
     <<-CONTENT
       <html>
       <head>
-          <title>We Arrive Here</title>
+          <title>#{params[:title] || "We Arrive Here"}</title>
       </head>
       <body>
       <p id="greeting">Success!</p>

@@ -112,6 +112,40 @@ describe "click action" do
     end
   end
 
-  context "anchor"
+  context "anchor" do
+    let(:clickable) { "a" }
+
+    context "href without params" do
+      let(:body) { %(<a href="/result.html">Go</a>) }
+      it "should go to another page" do
+        URI(driver.current_url).path.should == "/result.html"
+      end
+    end
+
+    context "href with params" do
+      let(:body) { %(<a href="/result.html?title=Hello">Go</a>) }
+      it "should go to another page" do
+        URI(driver.current_url).path.should == "/result.html"
+      end
+
+      it "should send the params to the other page" do
+        driver.title.should == "Hello"
+      end
+    end
+
+    context "no href attribute" do
+      let(:body) { %(<a>Go</a>) }
+      it "should not go to another page" do
+        URI(driver.current_url).path.should == "/"
+      end
+    end
+
+    context "with internal href attribute" do
+      let(:body) { %(<a href="#123">Go</a>) }
+      it "should not go to another page" do
+        URI(driver.current_url).path.should == "/"
+      end
+    end
+  end
 end
 

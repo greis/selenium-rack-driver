@@ -5,6 +5,8 @@ module SeleniumRackDriver
 
     def self.for(native, browser)
       element_class = case native.name
+                      when "a"
+                        AnchorElement
                       when "form"
                         FormElement
                       when "input"
