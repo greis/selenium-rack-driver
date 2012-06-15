@@ -22,6 +22,10 @@ module SeleniumRackDriver
       @dom = nil
     end
 
+    def respect_data_method?
+      SeleniumRackDriver.respect_data_method
+    end
+
     def source
       last_response.body
     rescue Rack::Test::Error
