@@ -272,5 +272,26 @@ describe "click action" do
       end
     end
   end
+
+  context "input checkbox" do
+
+    let(:clickable) { "input" }
+
+    context "unchecked" do
+      let(:body) { %(<input type="checkbox" name="color" />) }
+
+      it "should check the field" do
+        driver.find_element(:css, "input").should be_selected
+      end
+    end
+
+    context "checked" do
+      let(:body) { %(<input type="checkbox" name="color" checked />) }
+
+      it "should uncheck the field" do
+        driver.find_element(:css, "input").should_not be_selected
+      end
+    end
+  end
 end
 
