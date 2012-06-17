@@ -73,6 +73,10 @@ module SeleniumRackDriver
       browser.source
     end
 
+    def isElementSelected(element)
+      element.selected?
+    end
+
     def isElementEnabled(element)
       element[:disabled].nil?
     end

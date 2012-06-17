@@ -10,6 +10,15 @@ module SeleniumRackDriver
       end
     end
 
+    def select_option(option)
+      if multiple?
+        option.selected? ? option.unselect : option.select
+      else
+        selected_options.each(&:unselect)
+        option.select
+      end
+    end
+
     private
 
     def multiple?
@@ -21,7 +30,7 @@ module SeleniumRackDriver
     end
 
     def selected_options
-      options.select{|o| o[:selected] }
+      options.select(&:selected?)
     end
 
   end

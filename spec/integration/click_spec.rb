@@ -169,5 +169,108 @@ describe "click action" do
       end
     end
   end
+
+  context "select" do
+
+    context "single option" do
+
+      let(:body) { %(<select name="color">#{options}</select>) }
+
+      context "no option is selected" do
+        let(:options) do
+          <<-OPTIONS
+          <option value="green">Green</option>
+          <option value="red">Red</option>
+          OPTIONS
+        end
+        let(:clickable) { "option[value=red]" }
+
+        it "should set the option as selected" do
+          driver.find_element(:css, "option[value=red]").should be_selected
+        end
+
+        it "should keep the other option as unselected" do
+          driver.find_element(:css, "option[value=green]").should_not be_selected
+        end
+      end
+
+      context "another option is already selected" do
+        let(:options) do
+          <<-OPTIONS
+          <option value="green" selected>Green</option>
+          <option value="red">Red</option>
+          OPTIONS
+        end
+        let(:clickable) { "option[value=red]" }
+
+        it "should set the option as selected" do
+          driver.find_element(:css, "option[value=red]").should be_selected
+        end
+
+        it "should unselect the other option" do
+          driver.find_element(:css, "option[value=green]").should_not be_selected
+        end
+      end
+    end
+
+    context "multiple options" do
+
+      let(:body) { %(<select name="color" multiple>#{options}</select>) }
+
+      context "no option is selected" do
+        let(:options) do
+          <<-OPTIONS
+          <option value="green">Green</option>
+          <option value="red">Red</option>
+          OPTIONS
+        end
+        let(:clickable) { "option[value=red]" }
+
+        it "should set the option as selected" do
+          driver.find_element(:css, "option[value=red]").should be_selected
+        end
+
+        it "should keep the other option as unselected" do
+          driver.find_element(:css, "option[value=green]").should_not be_selected
+        end
+      end
+
+      context "another option is already selected" do
+        let(:options) do
+          <<-OPTIONS
+          <option value="green" selected>Green</option>
+          <option value="blue" selected>Blue</option>
+          <option value="red">Red</option>
+          OPTIONS
+        end
+
+        context "clicking the unselected option" do
+          let(:clickable) { "option[value=red]" }
+
+          it "should set the option as selected" do
+            driver.find_element(:css, "option[value=red]").should be_selected
+          end
+
+          it "should not change the other options" do
+            driver.find_element(:css, "option[value=green]").should be_selected
+            driver.find_element(:css, "option[value=blue]").should be_selected
+          end
+        end
+
+        context "clicking the selected option" do
+          let(:clickable) { "option[value=green]" }
+
+          it "should set the unselect the option" do
+            driver.find_element(:css, "option[value=green]").should_not be_selected
+          end
+
+          it "should not change the other options" do
+            driver.find_element(:css, "option[value=red]").should_not be_selected
+            driver.find_element(:css, "option[value=blue]").should be_selected
+          end
+        end
+      end
+    end
+  end
 end
 
