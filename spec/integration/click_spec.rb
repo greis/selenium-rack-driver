@@ -293,5 +293,53 @@ describe "click action" do
       end
     end
   end
+
+  context "input radio" do
+
+    let(:body) do
+      <<-BODY
+      <form>
+        #{input}
+      </form>
+      BODY
+    end
+
+    context "unchecked" do
+      let(:input) do
+        <<-INPUT
+          <input type="radio" name="color" value="red" />
+          <input type="radio" name="color" value="green" />
+        INPUT
+      end
+      let(:clickable) { "input[value=red]" }
+
+      it "should check the input" do
+        driver.find_element(:css, "input[value=red]").should be_selected
+      end
+
+      it "should keep the other input as unchecked" do
+        driver.find_element(:css, "input[value=green]").should_not be_selected
+      end
+    end
+
+    context "checked" do
+      let(:input) do
+        <<-INPUT
+          <input type="radio" name="color" value="red" />
+          <input type="radio" name="color" value="green" checked />
+        INPUT
+      end
+      let(:clickable) { "input[value=red]" }
+
+      it "should check the input" do
+        driver.find_element(:css, "input[value=red]").should be_selected
+      end
+
+      it "should unchecked the other input" do
+        driver.find_element(:css, "input[value=green]").should_not be_selected
+      end
+
+    end
+  end
 end
 
