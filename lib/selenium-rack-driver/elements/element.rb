@@ -70,6 +70,10 @@ module SeleniumRackDriver
 
     def clear; end
 
+    def enabled?
+      self[:disabled].nil?
+    end
+
     def find(type, expression)
       elements = case type
       when :xpath
@@ -94,10 +98,6 @@ module SeleniumRackDriver
 
     def tag_name
       native.name
-    end
-
-    def valid_for_click?
-      false
     end
 
   end

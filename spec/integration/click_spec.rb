@@ -41,7 +41,20 @@ describe "click action" do
           it "does not submit the form" do
             URI(driver.current_url).path.should == "/"
           end
+        end
 
+        context "disabled" do
+          let(:body) do
+            <<-BODY
+              <form method="post" action="/display_params">
+                <input type="#{type}" name="color" value="red" disabled />
+              </form>
+            BODY
+          end
+
+          it "does not submit the form" do
+            URI(driver.current_url).path.should == "/"
+          end
         end
       end
     end
@@ -93,7 +106,20 @@ describe "click action" do
           it "does not submit the form" do
             URI(driver.current_url).path.should == "/"
           end
+        end
 
+        context "disabled" do
+          let(:body) do
+            <<-BODY
+            <form method="post" action="/display_params">
+              <button type="#{type}" name="color" value="red" disabled />
+            </form>
+            BODY
+          end
+
+          it "does not submit the form" do
+            URI(driver.current_url).path.should == "/"
+          end
         end
       end
     end
@@ -292,6 +318,14 @@ describe "click action" do
         driver.find_element(:css, "input").should_not be_selected
       end
     end
+
+    context "disabled" do
+      let(:body) { %(<input type="checkbox" name="color" disabled />) }
+
+      it "should not check the field" do
+        driver.find_element(:css, "input").should_not be_selected
+      end
+    end
   end
 
   context "input radio" do
@@ -339,6 +373,24 @@ describe "click action" do
         driver.find_element(:css, "input[value=green]").should_not be_selected
       end
 
+    end
+
+    context "disabled" do
+      let(:input) do
+        <<-INPUT
+          <input type="radio" name="color" value="red" disabled/>
+          <input type="radio" name="color" value="green" checked />
+        INPUT
+      end
+      let(:clickable) { "input[value=red]" }
+
+      it "should not check the input" do
+        driver.find_element(:css, "input[value=red]").should_not be_selected
+      end
+
+      it "should keep the other input as checked" do
+        driver.find_element(:css, "input[value=green]").should be_selected
+      end
     end
   end
 end

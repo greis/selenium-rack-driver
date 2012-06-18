@@ -21,10 +21,6 @@ module SeleniumRackDriver
       native.remove_attribute("selected")
     end
 
-    def valid_for_click?
-      true
-    end
-
     private
 
     def select_field

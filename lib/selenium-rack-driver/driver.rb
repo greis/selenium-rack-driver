@@ -13,7 +13,7 @@ module SeleniumRackDriver
     end
 
     def clickElement(element)
-      element.click if element.valid_for_click?
+      element.click if element.respond_to?(:click) && element.valid_for_click?
     end
 
     def elementEquals(element, other)
@@ -78,7 +78,7 @@ module SeleniumRackDriver
     end
 
     def isElementEnabled(element)
-      element[:disabled].nil?
+      element.enabled?
     end
 
     def quit

@@ -17,10 +17,6 @@ module SeleniumRackDriver
       !self[:checked].nil?
     end
 
-    def valid_for_click?
-      true
-    end
-
     def valid_for_submission?(button)
       selected?
     end

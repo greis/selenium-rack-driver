@@ -6,7 +6,7 @@ module SeleniumRackDriver
     end
 
     def valid_for_click?
-      form
+      super && form
     end
 
     def valid_for_submission?(button)

@@ -13,6 +13,10 @@ module SeleniumRackDriver
       first(:ancestors, 'form')
     end
 
+    def valid_for_click?
+      enabled?
+    end
+
     def valid_for_submission?(button)
       true
     end
