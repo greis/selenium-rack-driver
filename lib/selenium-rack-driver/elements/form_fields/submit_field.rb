@@ -10,7 +10,7 @@ module SeleniumRackDriver
     end
 
     def valid_for_submission?(button)
-      button == self
+      super && button == self
     end
   end
 end

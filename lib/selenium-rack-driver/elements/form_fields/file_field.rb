@@ -13,7 +13,7 @@ module SeleniumRackDriver
     end
 
     def valid_for_submission?(button)
-      !self[:value].to_s.empty?
+      super && !self[:value].to_s.empty?
     end
 
   end

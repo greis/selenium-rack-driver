@@ -18,7 +18,7 @@ module SeleniumRackDriver
     end
 
     def valid_for_submission?(button)
-      true
+      enabled?
     end
 
   end

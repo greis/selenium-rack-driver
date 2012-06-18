@@ -62,6 +62,30 @@ describe "Form" do
         end
       end
 
+      context "disabled fields" do
+        let(:input) do
+          <<-INPUT
+            <input type="text" name="content" value="Hello"/>
+            <textarea name="color" disabled>red</textarea>
+            <input type="radio" name="color" value="red" checked disabled/>
+            <input type="checkbox" name="color" value="red" checked disabled/>
+            <input type="file" name="color" value="spec/data/red.jpg" disabled/>
+            <select name="color" disabled>
+              <option value="red" selected>Red</option>
+            </select>
+            <input type="text" name="color" value="red" disabled/>
+          INPUT
+        end
+
+        it "should not send the disabled param" do
+          driver.page_source.should_not include('color')
+        end
+
+        it "should send the enabled param" do
+          driver.page_source.should include('content')
+        end
+      end
+
       %w(text password hidden).each do |type|
         context "and input field is #{type}" do
           context "with value" do

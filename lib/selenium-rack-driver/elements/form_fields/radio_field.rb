@@ -19,7 +19,7 @@ module SeleniumRackDriver
     end
 
     def valid_for_submission?(button)
-      selected?
+      super && selected?
     end
 
     private
