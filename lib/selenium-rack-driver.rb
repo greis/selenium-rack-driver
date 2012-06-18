@@ -20,9 +20,4 @@ module SeleniumRackDriver
   autoload :OptionField,  'selenium-rack-driver/elements/form_fields/option_field'
   autoload :Button,  'selenium-rack-driver/elements/form_fields/button'
 
-  class << self
-    attr_accessor :app, :respect_data_method
-  end
-  self.respect_data_method = true
-
 end

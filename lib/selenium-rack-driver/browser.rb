@@ -2,10 +2,11 @@ module SeleniumRackDriver
   class Browser
     include ::Rack::Test::Methods
 
-    attr_accessor :current_url, :current_path
+    attr_accessor :app, :current_url, :current_path, :respect_data_method
 
-    def app
-      SeleniumRackDriver.app
+    def initialize(opts = {})
+      self.app = opts[:app]
+      self.respect_data_method = opts[:respect_data_method]
     end
 
     def dom
@@ -24,7 +25,7 @@ module SeleniumRackDriver
     end
 
     def respect_data_method?
-      SeleniumRackDriver.respect_data_method
+      respect_data_method
     end
 
     def source

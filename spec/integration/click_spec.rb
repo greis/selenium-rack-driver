@@ -2,10 +2,7 @@ require 'spec_helper'
 
 describe "click action" do
 
-  let(:respect_data_method) { true }
-
   before do
-    SeleniumRackDriver.respect_data_method = respect_data_method
     driver.navigate.to url_with(body: body)
     driver.find_element(:css, clickable).click
   end
@@ -181,16 +178,18 @@ describe "click action" do
         let(:body) { %(<a href="/display_params?color=red" data-method="post">Go</a>) }
         it "should send a POST request" do
           URI(driver.current_url).path.should == "/display_params"
+          driver.page_source.should include("method: post")
           driver.page_source.should include("color=red")
         end
       end
 
       context "respect_data_method to false" do
         let(:respect_data_method) { false }
-        let(:body) { %(<a href="/result.html?title=Hello" data-method="post">Go</a>) }
+        let(:body) { %(<a href="/display_params?color=red" data-method="post">Go</a>) }
         it "should send a GET request" do
-          URI(driver.current_url).path.should == "/result.html"
-          driver.title.should == "Hello"
+          URI(driver.current_url).path.should == "/display_params"
+          driver.page_source.should include("method: get")
+          driver.page_source.should include("color=red")
         end
       end
     end

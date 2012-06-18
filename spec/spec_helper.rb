@@ -13,10 +13,12 @@ RSpec.configure do |config|
   config.filter_run :focus
 end
 
-SeleniumRackDriver.app = SampleApp.new
-
 def driver
-  @driver ||= Selenium::WebDriver.for :rack
+  @driver ||= Selenium::WebDriver.for(:rack, app: SampleApp.new, respect_data_method: respect_data_method)
+end
+
+def respect_data_method
+  true
 end
 
 def url_with(opts = {})

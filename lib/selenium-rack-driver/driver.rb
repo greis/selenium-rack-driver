@@ -1,7 +1,10 @@
 module SeleniumRackDriver
   class Driver
 
+    attr_accessor :opts
+
     def initialize(opts = {})
+      self.opts = opts
     end
 
     def driver_extensions
@@ -92,7 +95,7 @@ module SeleniumRackDriver
     private
 
     def browser
-      @browser ||= Browser.new
+      @browser ||= Browser.new(opts)
     end
 
     def dom
